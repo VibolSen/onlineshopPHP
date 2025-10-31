@@ -60,7 +60,7 @@ class AuthController extends Controller {
         session_start();
         session_unset();
         session_destroy();
-        $this->redirect('login');
+        $this->redirect('');
     }
 }
 ?>

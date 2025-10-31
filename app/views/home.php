@@ -9,7 +9,7 @@ $title = 'Home';
 require __DIR__ . '/partials/header.php';
 ?>
 
-<main class="container">
+<main class="container py-5">
 
     <!-- Banner Section -->
     <?php 
@@ -20,16 +20,18 @@ require __DIR__ . '/partials/header.php';
     ?>
 
     <!-- Featured Products Section -->
-    <h2 class="featured-products-heading">Featured Products</h2>
+    <h2 class="text-center mb-5 display-4 font-weight-bold">Featured Products</h2>
 
     <?php if (!empty($products)): ?>
-        <div class="product-grid">
+        <div class="row">
             <?php foreach ($products as $product): ?>
-                <?php require __DIR__ . '/components/product_card.php'; ?>
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <?php require __DIR__ . '/components/product_card.php'; ?>
+                </div>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
-        <p class="no-products-message">No products available.</p>
+        <p class="alert alert-info text-center">No products available.</p>
     <?php endif; ?>
 </main>
 

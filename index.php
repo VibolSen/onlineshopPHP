@@ -99,6 +99,12 @@ if (!empty($segments[0])) {
             } else {
                 $action_name = 'index';
             }
+        } elseif ($segment_0 === 'about') {
+            $controller_name = 'HomeController';
+            $action_name = 'about';
+        } elseif ($segment_0 === 'contact') {
+            $controller_name = 'HomeController';
+            $action_name = 'contact';
         } else {
             $controller_name = ucfirst($segment_0) . 'Controller';
             if (!empty($segments[1])) {
