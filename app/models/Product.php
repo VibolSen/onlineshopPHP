@@ -31,6 +31,67 @@ class Product {
         return $result->fetch_assoc();
     }
 
+    public function getProductsFiltered($search, $category, $limit, $offset, $sort, $order) {
+        $sql = "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE p.name LIKE ?";
+            $params[] = "%" . $search . "%";
+            $types .= 's';
+        }
+
+        if (!empty($category)) {
+            $sql .= (strpos($sql, 'WHERE') === false) ? " WHERE" : " AND";
+            $sql .= " p.category_id = ?";
+            $params[] = $category;
+            $types .= 'i';
+        }
+
+        $sql .= " ORDER BY $sort $order LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function countProductsFiltered($search, $category) {
+        $sql = "SELECT COUNT(*) as count FROM products p";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE p.name LIKE ?";
+            $params[] = "%" . $search . "%";
+            $types .= 's';
+        }
+
+        if (!empty($category)) {
+            $sql .= (strpos($sql, 'WHERE') === false) ? " WHERE" : " AND";
+            $sql .= " p.category_id = ?";
+            $params[] = $category;
+            $types .= 'i';
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
+
     public function createProduct($name, $description, $price, $stock, $categoryId, $image = null) {
         $stmt = $this->conn->prepare("INSERT INTO products (name, description, price, stock, category_id, image) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssdiis", $name, $description, $price, $stock, $categoryId, $image);

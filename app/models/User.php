@@ -49,6 +49,63 @@ class User {
         return $stmt->execute();
     }
 
+    public function delete($id) {
+        $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+
+    public function getUsersFiltered($search, $limit, $offset, $sort, $order) {
+        $sql = "SELECT * FROM users";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE username LIKE ? OR email LIKE ?";
+            $searchTerm = "%" . $search . "%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'ss';
+        }
+
+        $sql .= " ORDER BY $sort $order LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function countUsersFiltered($search) {
+        $sql = "SELECT COUNT(*) as count FROM users";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE username LIKE ? OR email LIKE ?";
+            $searchTerm = "%" . $search . "%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'ss';
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
+
     public function verifyPassword($password, $hashed_password) {
         return password_verify($password, $hashed_password);
     }

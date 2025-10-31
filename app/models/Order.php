@@ -29,6 +29,79 @@ class Order {
         return $stmt->execute();
     }
 
+    public function getOrderDetails($orderId) {
+        $stmt = $this->conn->prepare("SELECT oi.*, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?");
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getOrdersFiltered($status, $search, $limit, $offset, $sort, $order) {
+        $sql = "SELECT o.*, u.username FROM orders o JOIN users u ON o.user_id = u.id";
+        $params = [];
+        $types = '';
+
+        if (!empty($status)) {
+            $sql .= " WHERE o.status = ?";
+            $params[] = $status;
+            $types .= 's';
+        }
+
+        if (!empty($search)) {
+            $sql .= (strpos($sql, 'WHERE') === false) ? " WHERE" : " AND";
+            $sql .= " (o.id LIKE ? OR u.username LIKE ?)";
+            $searchTerm = "%" . $search . "%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'ss';
+        }
+
+        $sql .= " ORDER BY $sort $order LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function countOrdersFiltered($status, $search) {
+        $sql = "SELECT COUNT(*) as count FROM orders o JOIN users u ON o.user_id = u.id";
+        $params = [];
+        $types = '';
+
+        if (!empty($status)) {
+            $sql .= " WHERE o.status = ?";
+            $params[] = $status;
+            $types .= 's';
+        }
+
+        if (!empty($search)) {
+            $sql .= (strpos($sql, 'WHERE') === false) ? " WHERE" : " AND";
+            $sql .= " (o.id LIKE ? OR u.username LIKE ?)";
+            $searchTerm = "%" . $search . "%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'ss';
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
+
     public function countAllOrders() {
         $result = $this->conn->query("SELECT COUNT(*) as count FROM orders");
         return $result->fetch_assoc()['count'];

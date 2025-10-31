@@ -1,45 +1,35 @@
 <h1><?php echo $title; ?></h1>
-<a href="#" onclick="openModal(`
-    <form action='/onlineshop/admin/createProduct' method='POST' enctype='multipart/form-data' class='form-container'>
-        <h2>Add New Product</h2>
-        <div class='form-group'>
-            <label for='name'>Product Name:</label>
-            <input type='text' id='name' name='name' required>
-        </div>
-        <div class='form-group'>
-            <label for='description'>Description:</label>
-            <textarea id='description' name='description'></textarea>
-        </div>
-        <div class='form-group'>
-            <label for='price'>Price:</label>
-            <input type='number' id='price' name='price' step='0.01' required>
-        </div>
-        <div class='form-group'>
-            <label for='stock'>Stock:</label>
-            <input type='number' id='stock' name='stock' required>
-        </div>
-        <div class='form-group'>
-            <label for='category_id'>Category:</label>
-            <select id='category_id' name='category_id' required>
-                <?php foreach ($categories as $category): ?>
-                    <option value='<?php echo $category['id']; ?>'><?php echo $category['name']; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class='form-group'>
-            <label for='image'>Product Image:</label>
-            <input type='file' id='image' name='image' accept='image/*'>
-        </div>
-        <button type='submit'>Add Product</button>
-    </form>
-`)">Add New Product</a>
-<table>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
+          Add New Product
+        </button>
+    </div>
+    <div class="col-md-6">
+        <form action="/onlineshop/admin/products" method="GET" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" name="search" class="form-control" placeholder="Search by name" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            </div>
+            <div class="form-group mr-2">
+                <select name="category" class="form-control">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?php echo $category['id']; ?>" <?php echo (isset($_GET['category']) && $_GET['category'] == $category['id']) ? 'selected' : ''; ?>><?php echo $category['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
+            <th><a href="/onlineshop/admin/products?sort=id&order=<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'id' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">ID <?php if (isset($_GET['sort']) && $_GET['sort'] == 'id') echo ($_GET['order'] == 'asc') ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>'; ?></a></th>
+            <th><a href="/onlineshop/admin/products?sort=name&order=<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'name' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Name <?php if (isset($_GET['sort']) && $_GET['sort'] == 'name') echo ($_GET['order'] == 'asc') ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>'; ?></a></th>
+            <th><a href="/onlineshop/admin/products?sort=price&order=<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Price <?php if (isset($_GET['sort']) && $_GET['sort'] == 'price') echo ($_GET['order'] == 'asc') ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>'; ?></a></th>
+            <th><a href="/onlineshop/admin/products?sort=stock&order=<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'stock' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Stock <?php if (isset($_GET['sort']) && $_GET['sort'] == 'stock') echo ($_GET['order'] == 'asc') ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>'; ?></a></th>
             <th>Category</th>
             <th>Image</th>
             <th>Actions</th>
@@ -61,50 +51,28 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <a href="#" onclick="openModal(`
-    <form action='/onlineshop/admin/editProduct/<?php echo $product['id']; ?>' method='POST' enctype='multipart/form-data' class='form-container'>
-        <h2>Edit Product: <?php echo htmlspecialchars($product['name']); ?></h2>
-        <?php if (isset($error)): ?>
-            <p class='error-message'><?php echo $error; ?></p>
-        <?php endif; ?>
-        <div class='form-group'>
-            <label for='name'>Product Name:</label>
-            <input type='text' id='name' name='name' value='<?php echo htmlspecialchars($product['name']); ?>' required>
-        </div>
-        <div class='form-group'>
-            <label for='description'>Description:</label>
-            <textarea id='description' name='description'><?php echo htmlspecialchars($product['description']); ?></textarea>
-        </div>
-        <div class='form-group'>
-            <label for='price'>Price:</label>
-            <input type='number' id='price' name='price' step='0.01' value='<?php echo htmlspecialchars($product['price']); ?>' required>
-        </div>
-        <div class='form-group'>
-            <label for='stock'>Stock:</label>
-            <input type='number' id='stock' name='stock' value='<?php echo htmlspecialchars($product['stock']); ?>' required>
-        </div>
-        <div class='form-group'>
-            <label for='category_id'>Category:</label>
-            <select id='category_id' name='category_id' required>
-                <?php foreach ($categories as $category): ?>
-                    <option value='<?php echo $category['id']; ?>' <?php echo ($category['id'] == $product['category_id']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($category['name']); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class='form-group'>
-            <label for='image'>Product Image:</label>
-            <?php if (!empty($product['image'])): ?>
-                <p>Current Image: <img src='/onlineshop/assets/images/<?php echo $product['image']; ?>' alt='<?php echo $product['name']; ?>' width='50'></p>
-                <input type='hidden' name='current_image' value='<?php echo htmlspecialchars($product['image']); ?>'>
-            <?php endif; ?>
-            <input type='file' id='image' name='image' accept='image/*'>
-        </div>
-        <button type='submit'>Update Product</button>
-    </form>
-`)">Edit</a>
-                    <a href="/onlineshop/admin/deleteProduct/<?php echo $product['id']; ?>" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editProductModal-<?php echo $product['id']; ?>">
+                      Edit
+                    </button>
+                    <a href="/onlineshop/admin/deleteProduct/<?php echo $product['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <li class="page-item <?php echo ($i == $currentPage) ? 'active' : ''; ?>">
+                <a class="page-link" href="/onlineshop/admin/products?page=<?php echo $i; ?>&search=<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>&category=<?php echo htmlspecialchars($_GET['category'] ?? ''); ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+    </ul>
+</nav>
+
+<?php require_once 'create.php'; ?>
+
+<?php foreach ($products as $product): ?>
+    <?php require 'edit.php'; ?>
+<?php endforeach; ?>

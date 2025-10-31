@@ -23,6 +23,53 @@ class Category {
         return $result->fetch_assoc();
     }
 
+    public function getCategoriesFiltered($search, $limit, $offset, $sort, $order) {
+        $sql = "SELECT * FROM categories";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE name LIKE ?";
+            $params[] = "%" . $search . "%";
+            $types .= 's';
+        }
+
+        $sql .= " ORDER BY $sort $order LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function countCategoriesFiltered($search) {
+        $sql = "SELECT COUNT(*) as count FROM categories";
+        $params = [];
+        $types = '';
+
+        if (!empty($search)) {
+            $sql .= " WHERE name LIKE ?";
+            $params[] = "%" . $search . "%";
+            $types .= 's';
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
+
     public function createCategory($name) {
         $stmt = $this->conn->prepare("INSERT INTO categories (name) VALUES (?)");
         $stmt->bind_param("s", $name);
