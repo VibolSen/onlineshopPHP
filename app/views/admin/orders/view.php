@@ -12,7 +12,7 @@
         <p><strong>User:</strong> <?php echo htmlspecialchars($order['username']); ?></p>
         <p><strong>Total Amount:</strong> $<?php echo htmlspecialchars(number_format($order['total_amount'], 2)); ?></p>
         <p><strong>Status:</strong> <?php echo htmlspecialchars($order['status']); ?></p>
-        <p><strong>Order Date:</strong> <?php echo htmlspecialchars($order['created_at']); ?></p>
+        <p><strong>Order Date:</strong> <?php echo htmlspecialchars($order['order_date']); ?></p>
         <hr>
         <h5>Order Items</h5>
         <table class="table table-striped">

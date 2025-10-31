@@ -16,10 +16,13 @@ if (strpos($request_uri, $base_path) === 0) {
     $request_uri = substr($request_uri, strlen($base_path));
 }
 
-$request_uri = trim($request_uri, '/');
-error_log('DEBUG: Trimmed request_uri = ' . $request_uri);
+// Separate URI path from query string
+$uri_parts = explode('?', $request_uri, 2);
+$path = trim($uri_parts[0], '/');
 
-$segments = explode('/', $request_uri);
+error_log('DEBUG: Trimmed path = ' . $path);
+
+$segments = explode('/', $path);
 error_log('DEBUG: Segments = ' . print_r($segments, true));
 
 $controller_name = 'HomeController'; // Default
@@ -122,7 +125,8 @@ if (file_exists($controller_file)) {
     $controller = new $controller_name();
 
     if (method_exists($controller, $action_name)) {
-        call_user_func_array([$controller, $action_name], $params);
+        // Pass $_GET as an additional parameter if needed by the action
+        call_user_func_array([$controller, $action_name], array_merge($params, [$_GET]));
     } else {
         // Handle 404 - Action not found
         echo "404 Not Found: Action " . $action_name . " not found in " . $controller_name;

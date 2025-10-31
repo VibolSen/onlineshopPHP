@@ -231,3 +231,47 @@ ul li i {
     font-size: 0.8rem;
     font-weight: 600;
 }
+
+/* Product Detail Page Styles */
+.product-detail-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    transition: 0.3s ease;
+}
+
+.product-detail-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.product-detail-image {
+    max-height: 400px;
+    object-fit: contain;
+    border: 1px solid #eee;
+    transition: transform 0.4s ease;
+}
+
+.product-detail-image:hover {
+    transform: scale(1.05);
+}
+
+/* Gradient Button */
+.btn-gradient {
+    background: linear-gradient(135deg, #007bff, #00bcd4);
+    color: #fff !important;
+    border: none;
+    border-radius: 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* Back button hover */
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    color: #007bff !important;
+    border-color: #007bff;
+}
