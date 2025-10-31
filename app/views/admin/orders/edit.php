@@ -2,20 +2,20 @@
 <?php if (isset($error)): ?>
     <p class="error-message"><?php echo $error; ?></p>
 <?php endif; ?>
-<form action="/onlineshop/admin/editOrderStatus/<?php echo $order['id']; ?>" method="POST">
-    <div>
+<form action="/onlineshop/admin/editOrderStatus/<?php echo $order['id']; ?>" method="POST" class="form-container">
+    <div class="form-group">
         <label for="order_id">Order ID:</label>
         <input type="text" id="order_id" name="order_id" value="<?php echo htmlspecialchars($order['id']); ?>" disabled>
     </div>
-    <div>
+    <div class="form-group">
         <label for="username">User:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($order['username']); ?>" disabled>
     </div>
-    <div>
+    <div class="form-group">
         <label for="total_amount">Total Amount:</label>
         <input type="text" id="total_amount" name="total_amount" value="$<?php echo htmlspecialchars(number_format($order['total_amount'], 2)); ?>" disabled>
     </div>
-    <div>
+    <div class="form-group">
         <label for="status">Status:</label>
         <select id="status" name="status" required>
             <option value="Pending" <?php echo ($order['status'] === 'Pending') ? 'selected' : ''; ?>>Pending</option>

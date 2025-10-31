@@ -8,6 +8,7 @@
     
 </head>
 <body>
+    <div class="admin-layout-container">
     <div class="admin-sidebar">
         <h2>Admin Panel</h2>
         <a href="/onlineshop/admin">Dashboard</a>
@@ -28,6 +29,7 @@
         <div class="admin-content-area">
             <?php require_once __DIR__ . '/../' . $contentView; ?>
         </div>
+    </div>
     </div>
 </body>
 </html>

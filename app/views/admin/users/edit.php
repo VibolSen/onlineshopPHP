@@ -2,16 +2,16 @@
 <?php if (isset($error)): ?>
     <p class="error-message"><?php echo $error; ?></p>
 <?php endif; ?>
-<form action="/onlineshop/admin/editUserRole/<?php echo $user['id']; ?>" method="POST">
-    <div>
+<form action="/onlineshop/admin/editUserRole/<?php echo $user['id']; ?>" method="POST" class="form-container">
+    <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
     </div>
-    <div>
+    <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled>
     </div>
-    <div>
+    <div class="form-group">
         <label for="role">Role:</label>
         <select id="role" name="role" required>
             <option value="user" <?php echo ($user['role'] === 'user') ? 'selected' : ''; ?>>User</option>

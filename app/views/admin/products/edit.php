@@ -2,24 +2,24 @@
 <?php if (isset($error)): ?>
     <p class="error-message"><?php echo $error; ?></p>
 <?php endif; ?>
-<form action="/onlineshop/admin/editProduct/<?php echo $product['id']; ?>" method="POST" enctype="multipart/form-data">
-    <div>
+<form action="/onlineshop/admin/editProduct/<?php echo $product['id']; ?>" method="POST" enctype="multipart/form-data" class="form-container">
+    <div class="form-group">
         <label for="name">Product Name:</label>
         <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required>
     </div>
-    <div>
+    <div class="form-group">
         <label for="description">Description:</label>
         <textarea id="description" name="description"><?php echo htmlspecialchars($product['description']); ?></textarea>
     </div>
-    <div>
+    <div class="form-group">
         <label for="price">Price:</label>
         <input type="number" id="price" name="price" step="0.01" value="<?php echo htmlspecialchars($product['price']); ?>" required>
     </div>
-    <div>
+    <div class="form-group">
         <label for="stock">Stock:</label>
         <input type="number" id="stock" name="stock" value="<?php echo htmlspecialchars($product['stock']); ?>" required>
     </div>
-    <div>
+    <div class="form-group">
         <label for="category_id">Category:</label>
         <select id="category_id" name="category_id" required>
             <?php foreach ($categories as $category): ?>
@@ -27,7 +27,7 @@
             <?php endforeach; ?>
         </select>
     </div>
-    <div>
+    <div class="form-group">
         <label for="image">Product Image:</label>
         <?php if (!empty($product['image'])): ?>
             <p>Current Image: <img src="/onlineshop/assets/images/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" width="50"></p>

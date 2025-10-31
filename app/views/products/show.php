@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="/onlineshop/assets/css/style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/onlineshop/">Home</a>
-            <a href="/onlineshop/products">Products</a>
-            <a href="/onlineshop/cart">Cart</a>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <?php if ($_SESSION['role'] === 'admin'): ?>
-                    <a href="/onlineshop/admin">Admin Dashboard</a>
-                <?php endif; ?>
-                <a href="/onlineshop/logout">Logout</a>
-            <?php else: ?>
-                <a href="/onlineshop/login">Login</a>
-                <a href="/onlineshop/register">Register</a>
-            <?php endif; ?>
-        </nav>
-    </header>
+<?php require __DIR__ . '/partials/header.php'; ?>
     <main>
         <?php if (isset($product) && !empty($product)): ?>
             <h1><?php echo $product['name']; ?></h1>
@@ -49,8 +25,4 @@
             <p>Product not found.</p>
         <?php endif; ?>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> Online Shop</p>
-    </footer>
-</body>
-</html>
+<?php require __DIR__ . '/partials/footer.php'; ?>

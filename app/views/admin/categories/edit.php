@@ -2,8 +2,8 @@
 <?php if (isset($error)): ?>
     <p class="error-message"><?php echo $error; ?></p>
 <?php endif; ?>
-<form action="/onlineshop/admin/editCategory/<?php echo $category['id']; ?>" method="POST">
-    <div>
+<form action="/onlineshop/admin/editCategory/<?php echo $category['id']; ?>" method="POST" class="form-container">
+    <div class="form-group">
         <label for="name">Category Name:</label>
         <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($category['name']); ?>" required>
     </div>
