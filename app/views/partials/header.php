@@ -10,9 +10,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($title ?? 'Online Shop'); ?></title>
     <link rel="stylesheet" href="/onlineshop/assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-</head>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <script src="<?php echo BASE_URL; ?>assets/js/modal.js" defer></script>
+    </head>
 <body>
     <header>
         <nav>
@@ -29,8 +29,38 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="<?php echo BASE_URL; ?>profile">Profile</a>
                     <a href="<?php echo BASE_URL; ?>logout">Logout</a>
                 <?php else: ?>
-                    <a href="<?php echo BASE_URL; ?>login">Login</a>
-                    <a href="<?php echo BASE_URL; ?>register">Register</a>
+                    <a href="#" onclick="openModal(`
+    <form action='/onlineshop/auth/login' method='POST' class='form-container'>
+        <h2>Login</h2>
+        <div class='form-group'>
+            <label for='username'>Username:</label>
+            <input type='text' id='username' name='username' required>
+        </div>
+        <div class='form-group'>
+            <label for='password'>Password:</label>
+            <input type='password' id='password' name='password' required>
+        </div>
+        <button type='submit'>Login</button>
+    </form>
+`)">Login</a>
+                    <a href="#" onclick="openModal(`
+    <form action='/onlineshop/auth/register' method='POST' class='form-container'>
+        <h2>Register</h2>
+        <div class='form-group'>
+            <label for='username'>Username:</label>
+            <input type='text' id='username' name='username' required>
+        </div>
+        <div class='form-group'>
+            <label for='email'>Email:</label>
+            <input type='email' id='email' name='email' required>
+        </div>
+        <div class='form-group'>
+            <label for='password'>Password:</label>
+            <input type='password' id='password' name='password' required>
+        </div>
+        <button type='submit'>Register</button>
+    </form>
+`)">Register</a>
                 <?php endif; ?>
             </div>
         </nav>

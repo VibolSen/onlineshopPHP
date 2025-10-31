@@ -17,7 +17,30 @@
                 <td><?php echo $user['email']; ?></td>
                 <td><?php echo $user['role']; ?></td>
                 <td>
-                    <a href="/onlineshop/admin/editUserRole/<?php echo $user['id']; ?>">Edit Role</a>
+                    <a href="#" onclick="openModal(`
+    <form action='/onlineshop/admin/editUserRole/<?php echo $user['id']; ?>' method='POST' class='form-container'>
+        <h2>Edit User Role: <?php echo htmlspecialchars($user['username']); ?></h2>
+        <?php if (isset($error)): ?>
+            <p class='error-message'><?php echo $error; ?></p>
+        <?php endif; ?>
+        <div class='form-group'>
+            <label for='username'>Username:</label>
+            <input type='text' id='username' name='username' value='<?php echo htmlspecialchars($user['username']); ?>' disabled>
+        </div>
+        <div class='form-group'>
+            <label for='email'>Email:</label>
+            <input type='email' id='email' name='email' value='<?php echo htmlspecialchars($user['email']); ?>' disabled>
+        </div>
+        <div class='form-group'>
+            <label for='role'>Role:</label>
+            <select id='role' name='role' required>
+                <option value='user' <?php echo ($user['role'] === 'user') ? 'selected' : ''; ?>>User</option>
+                <option value='admin' <?php echo ($user['role'] === 'admin') ? 'selected' : ''; ?>>Admin</option>
+            </select>
+        </div>
+        <button type='submit'>Update Role</button>
+    </form>
+`)">Edit Role</a>
                 </td>
             </tr>
         <?php endforeach; ?>
