@@ -12,13 +12,13 @@
                         <img src="/onlineshop/assets/images/<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" width="50">
                     <?php endif; ?>
                     <p>Price: $<?php echo number_format($item['price'], 2); ?></p>
-                    <form action="/onlineshop/cart/update" method="POST" style="display:inline;">
+                    <form action="/onlineshop/cart/update" method="POST" class="inline-form">
                         <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
                         <label for="quantity-<?php echo $item['id']; ?>">Quantity:</label>
                         <input type="number" id="quantity-<?php echo $item['id']; ?>" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" onchange="this.form.submit()">
                     </form>
                     <p>Subtotal: $<?php echo number_format($item['subtotal'], 2); ?></p>
-                    <form action="/onlineshop/cart/remove" method="POST" style="display:inline;">
+                    <form action="/onlineshop/cart/remove" method="POST" class="inline-form">
                         <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
                         <button type="submit">Remove</button>
                     </form>

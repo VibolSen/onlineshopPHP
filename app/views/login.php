@@ -26,7 +26,7 @@
     <main>
         <h1>Login</h1>
         <?php if (isset($error)): ?>
-            <p style="color: red;"><?php echo $error; ?></p>
+            <p class="error-message"><?php echo $error; ?></p>
         <?php endif; ?>
         <form action="/onlineshop/auth/login" method="POST">
             <div>

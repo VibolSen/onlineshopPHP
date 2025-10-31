@@ -20,7 +20,7 @@ require __DIR__ . '/partials/header.php';
     ?>
 
     <!-- Featured Products Section -->
-    <h2 style="text-align:center; margin:40px 0 20px;">Featured Products</h2>
+    <h2 class="featured-products-heading">Featured Products</h2>
 
     <?php if (!empty($products)): ?>
         <div class="product-grid">
@@ -29,7 +29,7 @@ require __DIR__ . '/partials/header.php';
             <?php endforeach; ?>
         </div>
     <?php else: ?>
-        <p style="text-align:center;">No products available.</p>
+        <p class="no-products-message">No products available.</p>
     <?php endif; ?>
 </main>
 

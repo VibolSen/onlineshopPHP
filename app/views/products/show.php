@@ -41,7 +41,7 @@
                         <button type="submit">Add to Cart</button>
                     </form>
                 <?php else: ?>
-                    <p style="color: red;"><strong>Out of Stock</strong></p>
+                    <p class="error-message"><strong>Out of Stock</strong></p>
                     <button type="button" disabled>Add to Cart</button>
                 <?php endif; ?>
             </div>

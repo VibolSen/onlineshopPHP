@@ -16,11 +16,11 @@
                             <p>Stock: <?php echo $product['stock']; ?></p>
                             <form action="/onlineshop/cart/add" method="POST">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>" style="width: 50px;">
+                                <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>" class="quantity-input">
                                 <button type="submit">Add to Cart</button>
                             </form>
                         <?php else: ?>
-                            <p style="color: red;">Out of Stock</p>
+                            <p class="error-message">Out of Stock</p>
                             <button type="button" disabled>Add to Cart</button>
                         <?php endif; ?>
                     </div>

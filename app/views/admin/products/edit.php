@@ -1,6 +1,6 @@
 <h1><?php echo $title; ?></h1>
 <?php if (isset($error)): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
+    <p class="error-message"><?php echo $error; ?></p>
 <?php endif; ?>
 <form action="/onlineshop/admin/editProduct/<?php echo $product['id']; ?>" method="POST" enctype="multipart/form-data">
     <div>
