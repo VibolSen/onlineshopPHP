@@ -133,16 +133,19 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/onlineshop/auth/login">Login</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/onlineshop/auth/register">Register</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Register</a>
                         </li>
                     <?php endif; ?>
                 </ul>
             </div>
         </nav>
     </header>
+
+    <?php require __DIR__ . '/../auth/login_modal.php'; ?>
+    <?php require __DIR__ . '/../auth/register_modal.php'; ?>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -16,7 +16,7 @@ class CartController extends Controller {
     public function add() {
         session_start();
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /onlineshop/auth/login?redirect=cart');
+            header('Location: /onlineshop/?showLoginModal=true');
             exit();
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

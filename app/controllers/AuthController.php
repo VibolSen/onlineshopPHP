@@ -17,13 +17,16 @@ class AuthController extends Controller {
             $password = $_POST['password'];
 
             if ($this->userModel->create($username, $email, $password)) {
-                // After register, redirect to login
-                $this->redirect('auth/login');
+                // After register, redirect to home page (where modal can be triggered)
+                $this->redirect(''); die();
             } else {
-                $this->view('auth/register', ['error' => 'Registration failed.']);
+                // If registration fails, redirect to home page with an error (to be displayed in modal)
+                // For now, just redirect to home. Error handling in modal can be added later.
+                $this->redirect(''); die();
             }
         } else {
-            $this->view('auth/register');
+            // If accessed via GET, redirect to home page where the modal is available
+            $this->redirect(''); die();
         }
     }
 
@@ -41,22 +44,25 @@ class AuthController extends Controller {
                 $_SESSION['role'] = $user['role'];
 
                 if (isset($_GET['redirect']) && $_GET['redirect'] === 'cart') {
-                    $this->redirect('cart');
+                    $this->redirect('cart'); die();
                 } else {
                     // ✅ Redirect based on role
                     if ($user['role'] === 'admin') {
                         // Redirect to Admin Dashboard
-                        $this->redirect('admin');
+                        $this->redirect('admin'); die();
                     } else {
                         // Redirect normal users to homepage
-                        $this->redirect('');
+                        $this->redirect(''); die();
                     }
                 }
             } else {
-                $this->view('auth/login', ['error' => 'Invalid username or password.']);
+                // If login fails, redirect to home page with an error (to be displayed in modal)
+                // For now, just redirect to home. Error handling in modal can be added later.
+                $this->redirect(''); die();
             }
         } else {
-            $this->view('auth/login');
+            // If accessed via GET, redirect to home page where the modal is available
+            $this->redirect(''); die();
         }
     }
 
