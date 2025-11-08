@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div class="col-md-6">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
           Add New Category
         </button>
     </div>
@@ -28,7 +28,7 @@
                 <td><?php echo $category['id']; ?></td>
                 <td><?php echo $category['name']; ?></td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editCategoryModal-<?php echo $category['id']; ?>">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal-<?php echo $category['id']; ?>">
                       Edit
                     </button>
                     <a href="/onlineshop/admin/deleteCategory/<?php echo $category['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>

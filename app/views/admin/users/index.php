@@ -27,7 +27,7 @@
                 <td><?php echo $user['email']; ?></td>
                 <td><?php echo $user['role']; ?></td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal-<?php echo $user['id']; ?>">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal-<?php echo $user['id']; ?>">
                       Edit
                     </button>
                     <a href="/onlineshop/admin/deleteUser/<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>

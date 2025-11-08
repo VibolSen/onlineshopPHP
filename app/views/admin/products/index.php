@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col-md-6">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
           Add New Product
         </button>
     </div>
@@ -50,7 +50,7 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editProductModal-<?php echo $product['id']; ?>">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal-<?php echo $product['id']; ?>">
                       Edit
                     </button>
                     <a href="/onlineshop/admin/deleteProduct/<?php echo $product['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
