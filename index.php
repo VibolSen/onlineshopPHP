@@ -39,83 +39,83 @@ if (!empty($segments[0])) {
     } elseif ($segment_0 === 'profile') {
         $controller_name = 'UserController';
         $action_name = 'profile';
-        } elseif ($segment_0 === 'admin') {
-            $controller_name = 'AdminController';
-            if (!empty($segments[1])) {
-                if ($segments[1] === 'products') {
-                    $action_name = 'products';
-                } elseif ($segments[1] === 'createProduct') {
-                    $action_name = 'createProduct';
-                } elseif ($segments[1] === 'editProduct' && isset($segments[2])) {
-                    $action_name = 'editProduct';
-                } elseif ($segments[1] === 'deleteProduct' && isset($segments[2])) {
-                    $action_name = 'deleteProduct';
-                } elseif ($segments[1] === 'categories') {
-                    $action_name = 'categories';
-                } elseif ($segments[1] === 'createCategory') {
-                    $action_name = 'createCategory';
-                } elseif ($segments[1] === 'editCategory' && isset($segments[2])) {
-                    $action_name = 'editCategory';
-                } elseif ($segments[1] === 'deleteCategory' && isset($segments[2])) {
-                    $action_name = 'deleteCategory';
-                } elseif ($segments[1] === 'users') {
-                    $action_name = 'users';
-                } elseif ($segments[1] === 'editUserRole' && isset($segments[2])) {
-                    $action_name = 'editUserRole';
-                } elseif ($segments[1] === 'orders') {
-                    $action_name = 'orders';
-                } elseif ($segments[1] === 'editOrderStatus' && isset($segments[2])) {
-                    $action_name = 'editOrderStatus';
-                } else {
-                    $action_name = $segments[1];
-                }
-                $params = array_slice($segments, 2);
-            }
-            } elseif ($segment_0 === 'cart') {
-                $controller_name = 'CartController';
-                if (!empty($segments[1])) {
-                    $action_name = $segments[1];
-                    $params = array_slice($segments, 2);
-                }
-                } elseif ($segment_0 === 'checkout') {
-                    $controller_name = 'CheckoutController';
-                    if (!empty($segments[1])) {
-                        $action_name = $segments[1];
-                        $params = array_slice($segments, 2);
-                    }
-                } elseif ($segment_0 === 'order') {
-                    $controller_name = 'OrderController';
-                    if (!empty($segments[1])) {
-                        $action_name = $segments[1];
-                        $params = array_slice($segments, 2);
-                    }
-            
+    } elseif ($segment_0 === 'admin') {
+        $controller_name = 'AdminController';
+        if (!empty($segments[1])) {
+            if ($segments[1] === 'products') {
+                $action_name = 'products';
+            } elseif ($segments[1] === 'createProduct') {
+                $action_name = 'createProduct';
+            } elseif ($segments[1] === 'editProduct' && isset($segments[2])) {
+                $action_name = 'editProduct';
+            } elseif ($segments[1] === 'deleteProduct' && isset($segments[2])) {
+                $action_name = 'deleteProduct';
+            } elseif ($segments[1] === 'categories') {
+                $action_name = 'categories';
+            } elseif ($segments[1] === 'createCategory') {
+                $action_name = 'createCategory';
+            } elseif ($segments[1] === 'editCategory' && isset($segments[2])) {
+                $action_name = 'editCategory';
+            } elseif ($segments[1] === 'deleteCategory' && isset($segments[2])) {
+                $action_name = 'deleteCategory';
+            } elseif ($segments[1] === 'users') {
+                $action_name = 'users';
+            } elseif ($segments[1] === 'editUserRole' && isset($segments[2])) {
+                $action_name = 'editUserRole';
+            } elseif ($segments[1] === 'orders') {
+                $action_name = 'orders';
+            } elseif ($segments[1] === 'editOrderStatus' && isset($segments[2])) {
+                $action_name = 'editOrderStatus';
             } else {
-        if ($segment_0 === 'product' || $segment_0 === 'products') {
-            $controller_name = 'ProductController';
-            if (!empty($segments[1])) {
-                if (is_numeric($segments[1])) { // Assuming product ID is numeric
-                    $action_name = 'show'; // Or 'detail'
-                    $params = [$segments[1]];
-                } else {
-                    $action_name = $segments[1];
-                    $params = array_slice($segments, 2);
-                }
-            } else {
-                $action_name = 'index';
+                $action_name = $segments[1];
             }
-        } elseif ($segment_0 === 'about') {
-            $controller_name = 'HomeController';
-            $action_name = 'about';
-        } elseif ($segment_0 === 'contact') {
-            $controller_name = 'HomeController';
-            $action_name = 'contact';
-        } else {
-            $controller_name = ucfirst($segment_0) . 'Controller';
-            if (!empty($segments[1])) {
+            $params = array_slice($segments, 2);
+        }
+    } elseif ($segment_0 === 'cart') {
+        $controller_name = 'CartController';
+        if (!empty($segments[1])) {
+            $action_name = $segments[1];
+            $params = array_slice($segments, 2);
+        }
+    } elseif ($segment_0 === 'checkout') {
+        $controller_name = 'CheckoutController';
+        if (!empty($segments[1])) {
+            $action_name = $segments[1];
+            $params = array_slice($segments, 2);
+        }
+    } elseif ($segment_0 === 'order') {
+        $controller_name = 'OrderController';
+        if (!empty($segments[1])) {
+            $action_name = $segments[1];
+            $params = array_slice($segments, 2);
+        }
+    } elseif ($segment_0 === 'logout') {
+        $controller_name = 'AuthController';
+        $action_name = 'logout';
+    } elseif ($segment_0 === 'product' || $segment_0 === 'products') {
+        $controller_name = 'ProductController';
+        if (!empty($segments[1])) {
+            if (is_numeric($segments[1])) { // Assuming product ID is numeric
+                $action_name = 'show'; // Or 'detail'
+                $params = [$segments[1]];
+            } else {
                 $action_name = $segments[1];
                 $params = array_slice($segments, 2);
             }
+        } else {
+            $action_name = 'index';
+        }
+    } elseif ($segment_0 === 'about') {
+        $controller_name = 'HomeController';
+        $action_name = 'about';
+    } elseif ($segment_0 === 'contact') {
+        $controller_name = 'HomeController';
+        $action_name = 'contact';
+    } else {
+        $controller_name = ucfirst($segment_0) . 'Controller';
+        if (!empty($segments[1])) {
+            $action_name = $segments[1];
+            $params = array_slice($segments, 2);
         }
     }
 }
