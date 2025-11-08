@@ -12,7 +12,7 @@ class OrderController extends Controller {
 
     public function confirmation($orderId) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /Program/Step/onlineshop/public/login');
+            header('Location: /onlineshop/login');
             exit();
         }
 

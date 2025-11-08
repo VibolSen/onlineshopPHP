@@ -18,13 +18,13 @@ class CheckoutController extends Controller {
 
     public function index() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /Program/Step/onlineshop/public/login');
+            header('Location: /onlineshop/login');
             exit();
         }
 
         $cartItems = $this->cartModel->getCartItems();
         if (empty($cartItems)) {
-            header('Location: /Program/Step/onlineshop/public/cart');
+            header('Location: /onlineshop/cart');
             exit();
         }
 
@@ -51,7 +51,7 @@ class CheckoutController extends Controller {
     public function placeOrder() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!isset($_SESSION['user_id'])) {
-                header('Location: /Program/Step/onlineshop/public/login');
+                header('Location: /onlineshop/login');
                 exit();
             }
 
@@ -59,7 +59,7 @@ class CheckoutController extends Controller {
             $cartItems = $this->cartModel->getCartItems();
 
             if (empty($cartItems)) {
-                header('Location: /Program/Step/onlineshop/public/cart');
+                header('Location: /onlineshop/cart');
                 exit();
             }
 
@@ -72,7 +72,7 @@ class CheckoutController extends Controller {
                 if (!$product || $product['stock'] < $quantity) {
                     // Redirect back to cart with an error message (you might want to use a session flash message)
                     $_SESSION['error_message'] = 'Not enough stock for ' . ($product['name'] ?? 'a product') . '.';
-                    header('Location: /Program/Step/onlineshop/public/cart');
+                    header('Location: /onlineshop/cart');
                     exit();
                 }
                 $orderItems[] = [
@@ -92,7 +92,7 @@ class CheckoutController extends Controller {
                     }
 
                     $this->cartModel->clearCart();
-                    header('Location: /Program/Step/onlineshop/public/order/confirmation/' . $orderId);
+                    header('Location: /onlineshop/order/confirmation/' . $orderId);
                     exit();
                 } else {
                     // Handle order creation failure

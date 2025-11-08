@@ -23,7 +23,7 @@ class CartController extends Controller {
                 if ($product) {
                     $this->cartModel->addProduct($productId, $quantity);
                     // Redirect back to the product page or cart page
-                    header('Location: /Program/Step/onlineshop/public/cart');
+                    header('Location: /onlineshop/cart');
                     exit();
                 } else {
                     // Handle product not found
@@ -67,7 +67,7 @@ class CartController extends Controller {
                 $this->cartModel->updateQuantity($productId, $quantity);
             }
         }
-        header('Location: /Program/Step/onlineshop/public/cart');
+        header('Location: /onlineshop/cart');
         exit();
     }
 
@@ -78,13 +78,13 @@ class CartController extends Controller {
                 $this->cartModel->removeProduct($productId);
             }
         }
-        header('Location: /Program/Step/onlineshop/public/cart');
+        header('Location: /onlineshop/cart');
         exit();
     }
 
     public function clear() {
         $this->cartModel->clearCart();
-        header('Location: /Program/Step/onlineshop/public/cart');
+        header('Location: /onlineshop/cart');
         exit();
     }
 }
