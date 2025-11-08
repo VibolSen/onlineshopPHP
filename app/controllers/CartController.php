@@ -14,6 +14,11 @@ class CartController extends Controller {
     }
 
     public function add() {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /onlineshop/auth/login?redirect=cart');
+            exit();
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = $_POST['product_id'] ?? null;
             $quantity = $_POST['quantity'] ?? 1;

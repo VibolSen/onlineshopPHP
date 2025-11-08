@@ -12,23 +12,6 @@
         </div>
     </footer>
 
-    <!-- Generic Modal Structure (Hidden by default) -->
-    <div class="modal fade" id="genericModal" tabindex="-1" aria-labelledby="genericModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-3 border-0 shadow-lg">
-                <div class="modal-header bg-primary text-white border-0">
-                    <h5 class="modal-title" id="genericModalLabel"></h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-4" id="modalContentArea">
-                    <!-- Form or other content will be loaded here by JavaScript -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <style>
         /* ===== Fancy Footer ===== */
         .fancy-footer {

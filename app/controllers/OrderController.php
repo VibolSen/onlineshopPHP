@@ -12,8 +12,7 @@ class OrderController extends Controller {
 
     public function confirmation($orderId) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /onlineshop/login');
-            exit();
+            $this->redirect('auth/login');
         }
 
         $order = $this->orderModel->getOrderById($orderId);

@@ -13,7 +13,7 @@ class UserController extends Controller {
 
     public function profile() {
         if (!isset($_SESSION['user_id'])) {
-            $this->redirect('login');
+            $this->redirect('auth/login');
         }
 
         $user = $this->userModel->findById($_SESSION['user_id']);

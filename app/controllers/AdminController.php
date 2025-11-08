@@ -20,7 +20,7 @@ class AdminController extends Controller {
 
         // Check if user is logged in and has admin role
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-            $this->redirect('login'); // Redirect to login if not authorized
+            $this->redirect('auth/login'); // Redirect to login if not authorized
         }
     }
 

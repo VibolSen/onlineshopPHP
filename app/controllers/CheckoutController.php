@@ -18,8 +18,7 @@ class CheckoutController extends Controller {
 
     public function index() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /onlineshop/login');
-            exit();
+            $this->redirect('auth/login');
         }
 
         $cartItems = $this->cartModel->getCartItems();
@@ -51,8 +50,7 @@ class CheckoutController extends Controller {
     public function placeOrder() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!isset($_SESSION['user_id'])) {
-                header('Location: /onlineshop/login');
-                exit();
+                $this->redirect('auth/login');
             }
 
             $userId = $_SESSION['user_id'];

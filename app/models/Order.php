@@ -10,13 +10,13 @@ class Order {
     }
 
     public function getAllOrders() {
-        $sql = "SELECT o.*, u.username FROM orders o JOIN users u ON o.user_id = u.id ORDER BY o.order_date DESC";
+        $sql = "SELECT o.*, u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id ORDER BY o.order_date DESC";
         $result = $this->conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getOrderById($id) {
-        $stmt = $this->conn->prepare("SELECT o.*, u.username FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = ?");
+        $stmt = $this->conn->prepare("SELECT o.*, u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id WHERE o.id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -30,7 +30,7 @@ class Order {
     }
 
     public function getOrderDetails($orderId) {
-        $stmt = $this->conn->prepare("SELECT oi.*, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?");
+        $stmt = $this->conn->prepare("SELECT oi.*, p.name as product_name FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?");
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -38,7 +38,7 @@ class Order {
     }
 
     public function getOrdersFiltered($status, $search, $limit, $offset, $sort, $order) {
-        $sql = "SELECT o.*, u.username FROM orders o JOIN users u ON o.user_id = u.id";
+        $sql = "SELECT o.*, u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id";
         $params = [];
         $types = '';
 

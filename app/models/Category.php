@@ -15,6 +15,12 @@ class Category {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAllCategoriesWithProductCount() {
+        $sql = "SELECT c.*, COUNT(p.id) as product_count FROM categories c LEFT JOIN products p ON c.id = p.category_id GROUP BY c.id";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getCategoryById($id) {
         $stmt = $this->conn->prepare("SELECT * FROM categories WHERE id = ?");
         $stmt->bind_param("i", $id);

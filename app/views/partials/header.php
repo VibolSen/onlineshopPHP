@@ -13,7 +13,6 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <script src="<?php echo BASE_URL; ?>assets/js/modal.js" defer></script>
 
     <style>
         /* Fancy Navbar */
@@ -134,40 +133,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="openModal(`
-                                <form action='/onlineshop/auth/login' method='POST' class='form-container'>
-                                    <h2>Login</h2>
-                                    <div class='form-group'>
-                                        <label for='username'>Username:</label>
-                                        <input type='text' id='username' name='username' class='form-control' required>
-                                    </div>
-                                    <div class='form-group'>
-                                        <label for='password'>Password:</label>
-                                        <input type='password' id='password' name='password' class='form-control' required>
-                                    </div>
-                                    <button type='submit' class='btn btn-primary btn-block'>Login</button>
-                                </form>
-                            `)">Login</a>
+                            <a class="nav-link" href="/onlineshop/auth/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="openModal(`
-                                <form action='/onlineshop/auth/register' method='POST' class='form-container'>
-                                    <h2>Register</h2>
-                                    <div class='form-group'>
-                                        <label for='username'>Username:</label>
-                                        <input type='text' id='username' name='username' class='form-control' required>
-                                    </div>
-                                    <div class='form-group'>
-                                        <label for='email'>Email:</label>
-                                        <input type='email' id='email' name='email' class='form-control' required>
-                                    </div>
-                                    <div class='form-group'>
-                                        <label for='password'>Password:</label>
-                                        <input type='password' id='password' name='password' class='form-control' required>
-                                    </div>
-                                    <button type='submit' class='btn btn-success btn-block'>Register</button>
-                                </form>
-                            `)">Register</a>
+                            <a class="nav-link" href="/onlineshop/auth/register">Register</a>
                         </li>
                     <?php endif; ?>
                 </ul>

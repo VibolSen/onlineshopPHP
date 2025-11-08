@@ -31,9 +31,11 @@ $params = []; // Initialize parameters array
 
 if (!empty($segments[0])) {
     $segment_0 = strtolower($segments[0]);
-    if ($segment_0 === 'login' || $segment_0 === 'register' || $segment_0 === 'logout') {
+    if ($segment_0 === 'auth') {
         $controller_name = 'AuthController';
-        $action_name = $segment_0;
+        if (!empty($segments[1])) {
+            $action_name = $segments[1];
+        }
     } elseif ($segment_0 === 'profile') {
         $controller_name = 'UserController';
         $action_name = 'profile';

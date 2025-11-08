@@ -14,7 +14,15 @@
         </div>
         <div class="d-flex justify-content-between align-items-center mt-auto">
             <span class="h5 mb-0 text-primary">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span>
-            <a href="/onlineshop/product/show/<?php echo $product['id']; ?>" class="btn btn-outline-primary btn-sm">View Details</a>
+            <div>
+                <a href="/onlineshop/product/show/<?php echo $product['id']; ?>" class="btn btn-outline-primary btn-sm">View</a>
+                <form action="/onlineshop/cart/add" method="POST" class="d-inline">
+                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                    <button type="submit" class="btn btn-primary btn-sm" <?php echo $product['stock'] > 0 ? '' : 'disabled'; ?>>
+                        <i class="bi bi-cart-plus"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
