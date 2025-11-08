@@ -1,4 +1,3 @@
-<h1><?php echo $title; ?></h1>
 <div class="row mb-3">
     <div class="col-md-12">
         <form action="/onlineshop/admin/users" method="GET" class="form-inline">

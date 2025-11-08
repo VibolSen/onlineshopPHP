@@ -1,38 +1,38 @@
-<div class="row">
+<div class="row g-4">
+    <!-- Dashboard Metrics -->
     <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-header">Total Users</div>
-            <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-users"></i> <?php echo $totalUsers; ?></h5>
+        <div class="card text-white bg-primary shadow-sm rounded-4">
+            <div class="card-header fw-bold">Total Users</div>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h3 class="card-title mb-0"><i class="fas fa-users me-2"></i> <?php echo $totalUsers; ?></h3>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-header">Total Products</div>
-            <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-box"></i> <?php echo $totalProducts; ?></h5>
+        <div class="card text-white bg-success shadow-sm rounded-4">
+            <div class="card-header fw-bold">Total Products</div>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h3 class="card-title mb-0"><i class="fas fa-box me-2"></i> <?php echo $totalProducts; ?></h3>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-white bg-info mb-3">
-            <div class="card-header">Total Orders</div>
-            <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-shopping-cart"></i> <?php echo $totalOrders; ?></h5>
+        <div class="card text-white bg-info shadow-sm rounded-4">
+            <div class="card-header fw-bold">Total Orders</div>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h3 class="card-title mb-0"><i class="fas fa-shopping-cart me-2"></i> <?php echo $totalOrders; ?></h3>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Recent Users -->
 <div class="row mt-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                Recent Users
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
+    <div class="col-12">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-secondary text-white fw-bold">Recent Users</div>
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -47,7 +47,9 @@
                                 <td><?php echo $user['id']; ?></td>
                                 <td><?php echo $user['username']; ?></td>
                                 <td><?php echo $user['email']; ?></td>
-                                <td><?php echo $user['role']; ?></td>
+                                <td>
+                                    <span class="badge bg-primary text-uppercase"><?php echo $user['role']; ?></span>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -57,14 +59,13 @@
     </div>
 </div>
 
+<!-- Recent Products -->
 <div class="row mt-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                Recent Products
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
+    <div class="col-12">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-secondary text-white fw-bold">Recent Products</div>
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -78,7 +79,7 @@
                             <tr>
                                 <td><?php echo $product['id']; ?></td>
                                 <td><?php echo $product['name']; ?></td>
-                                <td><?php echo $product['price']; ?></td>
+                                <td>$<?php echo number_format($product['price'], 2); ?></td>
                                 <td><?php echo $product['stock']; ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -89,18 +90,17 @@
     </div>
 </div>
 
+<!-- Recent Orders -->
 <div class="row mt-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                Recent Orders
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
+    <div class="col-12">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-secondary text-white fw-bold">Recent Orders</div>
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User ID</th>
+                            <th>User</th>
                             <th>Total</th>
                             <th>Status</th>
                         </tr>
@@ -110,8 +110,18 @@
                             <tr>
                                 <td><?php echo $order['id']; ?></td>
                                 <td><?php echo $order['user_id']; ?></td>
-                                <td><?php echo $order['total_amount']; ?></td>
-                                <td><?php echo $order['status']; ?></td>
+                                <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
+                                <td>
+                                    <?php 
+                                        $statusClass = match($order['status']) {
+                                            'pending' => 'bg-warning',
+                                            'completed' => 'bg-success',
+                                            'cancelled' => 'bg-danger',
+                                            default => 'bg-secondary'
+                                        };
+                                    ?>
+                                    <span class="badge <?php echo $statusClass; ?> text-white text-uppercase"><?php echo $order['status']; ?></span>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

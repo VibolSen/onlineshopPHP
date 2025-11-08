@@ -1,4 +1,3 @@
-<h1><?php echo $title; ?></h1>
 <div class="row mb-3">
     <div class="col-md-6">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
