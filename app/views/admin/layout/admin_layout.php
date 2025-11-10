@@ -8,11 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
         /* Sidebar */
         #sidebar-wrapper {
             min-height: 100vh;
             width: 250px;
             transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            background-color: #ffffff;
         }
         #sidebar-wrapper .sidebar-heading {
             font-size: 1.5rem;
@@ -26,16 +31,25 @@
             border: none;
             padding: 1rem 1.5rem;
             transition: all 0.2s;
+            color: #555;
         }
         #sidebar-wrapper .list-group-item:hover {
+            background: #f0f0f0;
+            color: #0012FF;
+            font-weight: 500;
+        }
+        #sidebar-wrapper .list-group-item.active {
             background: #0d6efd;
-            color: #fff;
+            color: #2791F5;
             font-weight: 500;
         }
         /* Page content */
         #page-content-wrapper {
             width: 100%;
             padding: 20px;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .navbar-dark .navbar-nav .nav-link {
             color: #fff;
@@ -107,5 +121,15 @@
             margin-left: -250px;
         }
     </style>
+    <script>
+        // Add active class to sidebar link
+        const currentPath = window.location.pathname;
+        const sidebarLinks = document.querySelectorAll('#sidebar-wrapper .list-group-item');
+        sidebarLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>
