@@ -116,6 +116,19 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>products">Products</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>products">All Categories</a>
+                            <?php if (isset($categories)): ?>
+                                <?php foreach ($categories as $category): ?>
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>products/category/<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>about">About</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL; ?>contact">Contact</a>
@@ -146,8 +159,3 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <?php require __DIR__ . '/../auth/login_modal.php'; ?>
     <?php require __DIR__ . '/../auth/register_modal.php'; ?>
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

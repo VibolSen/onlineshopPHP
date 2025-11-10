@@ -6,14 +6,14 @@
         </button>
     </div>
     <div class="card-body">
-        <form action="/onlineshop/admin/products" method="GET" class="row g-3 mb-4">
+        <form action="/onlineshop/admin/products" method="GET" class="row g-3 mb-4 align-items-center">
             <div class="col-md-5">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                     <input type="text" name="search" class="form-control" placeholder="Search by name" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-filter"></i></span>
                     <select name="category" class="form-select">
@@ -24,8 +24,9 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-filter me-2"></i> Filter</button>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-filter me-2"></i> Apply Filters</button>
+                <a href="/onlineshop/admin/products" class="btn btn-secondary w-100 mt-2"><i class="fas fa-undo me-2"></i> Reset Filters</a>
             </div>
         </form>
 
