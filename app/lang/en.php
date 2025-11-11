@@ -94,4 +94,7 @@ return [
     'pending' => 'Pending',
     'completed' => 'Completed',
     'cancelled' => 'Cancelled',
+    'availability' => 'Availability',
+    'out_of_stock' => 'Out of Stock',
+    'product_not_found' => 'Product not found.',
 ];
