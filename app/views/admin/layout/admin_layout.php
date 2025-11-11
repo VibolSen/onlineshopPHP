@@ -1,9 +1,20 @@
+<?php 
+require_once __DIR__ . '/../../../controllers/Controller.php'; 
+
+// Helper function to generate language switch URL
+function getLanguageSwitchUrl($lang_code) {
+    $query = $_GET;
+    $query['lang'] = $lang_code;
+    $path = explode('?', $_SERVER['REQUEST_URI'])[0];
+    return $path . '?' . http_build_query($query);
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $_SESSION['lang'] ?? DEFAULT_LANGUAGE; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title; ?> - Admin</title>
+    <title><?php echo $title; ?> - <?php echo Controller::_t('admin_panel'); ?></title>
     <link rel="stylesheet" href="/onlineshop/assets/css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -66,14 +77,14 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-light border-end shadow-sm" id="sidebar-wrapper">
-            <div class="sidebar-heading">Admin Panel</div>
+            <div class="sidebar-heading"><?php echo Controller::_t('admin_panel'); ?></div>
             <div class="list-group list-group-flush">
-                <a href="/onlineshop/admin" class="list-group-item list-group-item-action bg-light"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-                <a href="/onlineshop/admin/products" class="list-group-item list-group-item-action bg-light"><i class="fas fa-box me-2"></i> Manage Products</a>
-                <a href="/onlineshop/admin/categories" class="list-group-item list-group-item-action bg-light"><i class="fas fa-tags me-2"></i> Manage Categories</a>
-                <a href="/onlineshop/admin/users" class="list-group-item list-group-item-action bg-light"><i class="fas fa-users me-2"></i> Manage Users</a>
-                <a href="/onlineshop/admin/orders" class="list-group-item list-group-item-action bg-light"><i class="fas fa-shopping-cart me-2"></i> Manage Orders</a>
-                <a href="/onlineshop/logout" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+                <a href="/onlineshop/admin" class="list-group-item list-group-item-action bg-light"><i class="fas fa-tachometer-alt me-2"></i> <?php echo Controller::_t('dashboard'); ?></a>
+                <a href="/onlineshop/admin/products" class="list-group-item list-group-item-action bg-light"><i class="fas fa-box me-2"></i> <?php echo Controller::_t('manage_products'); ?></a>
+                <a href="/onlineshop/admin/categories" class="list-group-item list-group-item-action bg-light"><i class="fas fa-tags me-2"></i> <?php echo Controller::_t('manage_categories'); ?></a>
+                <a href="/onlineshop/admin/users" class="list-group-item list-group-item-action bg-light"><i class="fas fa-users me-2"></i> <?php echo Controller::_t('manage_users'); ?></a>
+                <a href="/onlineshop/admin/orders" class="list-group-item list-group-item-action bg-light"><i class="fas fa-shopping-cart me-2"></i> <?php echo Controller::_t('manage_orders'); ?></a>
+                <a href="/onlineshop/logout" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sign-out-alt me-2"></i> <?php echo Controller::_t('logout'); ?></a>
             </div>
         </div>
 
@@ -84,11 +95,25 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-globe"></i> <?php echo Controller::_t('language'); ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                                <?php foreach (AVAILABLE_LANGUAGES as $lang_code): ?>
+                                    <li>
+                                        <a class="dropdown-item <?php echo (($_SESSION['lang'] ?? DEFAULT_LANGUAGE) === $lang_code) ? 'active' : ''; ?>" href="<?php echo getLanguageSwitchUrl($lang_code); ?>">
+                                            <?php echo Controller::_t($lang_code === 'en' ? 'english' : 'khmer'); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, <?php echo $_SESSION['username']; ?>
+                                <?php echo Controller::_t('welcome'); ?>, <?php echo $_SESSION['username']; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/onlineshop/logout">Logout</a></li>
+                                <li><a class="dropdown-item" href="/onlineshop/logout"><?php echo Controller::_t('logout'); ?></a></li>
                             </ul>
                         </li>
                     </ul>

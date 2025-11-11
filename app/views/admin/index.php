@@ -1,8 +1,9 @@
+<?php require_once __DIR__ . '/../../controllers/Controller.php'; ?>
 <div class="row g-4">
     <!-- Dashboard Metrics -->
     <div class="col-md-4">
         <div class="card text-white bg-primary shadow-sm rounded-4">
-            <div class="card-header fw-bold">Total Users</div>
+            <div class="card-header fw-bold"><?php echo Controller::_t('total_users'); ?></div>
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h3 class="card-title mb-0"><i class="fas fa-users me-2"></i> <?php echo $totalUsers; ?></h3>
             </div>
@@ -10,7 +11,7 @@
     </div>
     <div class="col-md-4">
         <div class="card text-white bg-success shadow-sm rounded-4">
-            <div class="card-header fw-bold">Total Products</div>
+            <div class="card-header fw-bold"><?php echo Controller::_t('total_products'); ?></div>
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h3 class="card-title mb-0"><i class="fas fa-box me-2"></i> <?php echo $totalProducts; ?></h3>
             </div>
@@ -18,7 +19,7 @@
     </div>
     <div class="col-md-4">
         <div class="card text-white bg-info shadow-sm rounded-4">
-            <div class="card-header fw-bold">Total Orders</div>
+            <div class="card-header fw-bold"><?php echo Controller::_t('total_orders'); ?></div>
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h3 class="card-title mb-0"><i class="fas fa-shopping-cart me-2"></i> <?php echo $totalOrders; ?></h3>
             </div>
@@ -30,15 +31,15 @@
 <div class="row mt-4">
     <div class="col-12">
         <div class="card shadow-sm rounded-4">
-            <div class="card-header bg-secondary text-white fw-bold">Recent Users</div>
+            <div class="card-header bg-secondary text-white fw-bold"><?php echo Controller::_t('recent_users'); ?></div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th><?php echo Controller::_t('id'); ?></th>
+                            <th><?php echo Controller::_t('username'); ?></th>
+                            <th><?php echo Controller::_t('email'); ?></th>
+                            <th><?php echo Controller::_t('role'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,15 +64,15 @@
 <div class="row mt-4">
     <div class="col-12">
         <div class="card shadow-sm rounded-4">
-            <div class="card-header bg-secondary text-white fw-bold">Recent Products</div>
+            <div class="card-header bg-secondary text-white fw-bold"><?php echo Controller::_t('recent_products'); ?></div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Stock</th>
+                            <th><?php echo Controller::_t('id'); ?></th>
+                            <th><?php echo Controller::_t('name'); ?></th>
+                            <th><?php echo Controller::_t('price'); ?></th>
+                            <th><?php echo Controller::_t('stock'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,15 +95,15 @@
 <div class="row mt-4">
     <div class="col-12">
         <div class="card shadow-sm rounded-4">
-            <div class="card-header bg-secondary text-white fw-bold">Recent Orders</div>
+            <div class="card-header bg-secondary text-white fw-bold"><?php echo Controller::_t('recent_orders'); ?></div>
             <div class="card-body table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Total</th>
-                            <th>Status</th>
+                            <th><?php echo Controller::_t('id'); ?></th>
+                            <th><?php echo Controller::_t('user'); ?></th>
+                            <th><?php echo Controller::_t('total'); ?></th>
+                            <th><?php echo Controller::_t('status'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,7 +121,7 @@
                                             default => 'bg-secondary'
                                         };
                                     ?>
-                                    <span class="badge <?php echo $statusClass; ?> text-white text-uppercase"><?php echo $order['status']; ?></span>
+                                    <span class="badge <?php echo $statusClass; ?> text-white text-uppercase"><?php echo Controller::_t($order['status']); ?></span>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
