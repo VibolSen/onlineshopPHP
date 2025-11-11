@@ -2,13 +2,22 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once __DIR__ . '/../../controllers/Controller.php'; // Ensure Controller is loaded for _t()
+
+// Helper function to generate language switch URL
+function getLanguageSwitchUrl($lang_code) {
+    $query = $_GET;
+    $query['lang'] = $lang_code;
+    $path = explode('?', $_SERVER['REQUEST_URI'])[0];
+    return $path . '?' . http_build_query($query);
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $_SESSION['lang'] ?? DEFAULT_LANGUAGE; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($title ?? 'Online Shop'); ?></title>
+    <title><?php echo htmlspecialchars($title ?? Controller::_t('app_name')); ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -106,7 +115,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <a class="navbar-brand text-white" href="<?php echo BASE_URL; ?>">
-                <i class="bi bi-bag-heart-fill mr-1"></i> OnlineShop
+                <i class="bi bi-bag-heart-fill mr-1"></i> <?php echo Controller::_t('app_name'); ?>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,13 +124,13 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>products"><?php echo Controller::_t('products'); ?></a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Categories
+                            <?php echo Controller::_t('categories'); ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>products">All Categories</a>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>products"><?php echo Controller::_t('all_categories'); ?></a>
                             <?php if (isset($categories)): ?>
                                 <?php foreach ($categories as $category): ?>
                                     <a class="dropdown-item" href="<?php echo BASE_URL; ?>products/category/<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></a>
@@ -129,29 +138,42 @@ if (session_status() === PHP_SESSION_NONE) {
                             <?php endif; ?>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>about"><?php echo Controller::_t('about_us'); ?></a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>contact">Contact</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>contact"><?php echo Controller::_t('contact_us'); ?></a>
                     </li>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>cart"><i class="bi bi-cart-fill"></i> Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>cart"><i class="bi bi-cart-fill"></i> <?php echo Controller::_t('cart'); ?></a></li>
 
                         <?php if ($_SESSION['role'] === 'admin'): ?>
-                            <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin"><i class="bi bi-speedometer2"></i> Admin</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin"><i class="bi bi-speedometer2"></i> <?php echo Controller::_t('admin_panel'); ?></a></li>
                         <?php endif; ?>
 
-                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>profile"><i class="bi bi-person-circle"></i> Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>profile"><i class="bi bi-person-circle"></i> <?php echo Controller::_t('profile'); ?></a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>logout"><i class="bi bi-box-arrow-right"></i> <?php echo Controller::_t('logout'); ?></a></li>
 
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"><?php echo Controller::_t('login'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Register</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal"><?php echo Controller::_t('register'); ?></a>
                         </li>
                     <?php endif; ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-globe"></i> <?php echo Controller::_t('language'); ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                            <?php foreach (AVAILABLE_LANGUAGES as $lang_code): ?>
+                                <a class="dropdown-item <?php echo (($_SESSION['lang'] ?? DEFAULT_LANGUAGE) === $lang_code) ? 'active' : ''; ?>" href="<?php echo getLanguageSwitchUrl($lang_code); ?>">
+                                    <?php echo Controller::_t($lang_code === 'en' ? 'english' : 'khmer'); ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>

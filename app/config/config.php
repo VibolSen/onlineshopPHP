@@ -5,6 +5,10 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'onlineshop');
 
+// Language settings
+define('DEFAULT_LANGUAGE', 'en');
+define('AVAILABLE_LANGUAGES', ['en', 'km']);
+
 // Define base URL dynamically
 $base_url_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 define('BASE_URL', $base_url_path . '/');

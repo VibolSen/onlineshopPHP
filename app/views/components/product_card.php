@@ -1,4 +1,5 @@
 <!-- product_card.php -->
+<?php require_once __DIR__ . '/../../controllers/Controller.php'; // Ensure Controller is loaded for _t() ?>
 <div class="card h-100 shadow-sm product-card-hover">
     <img src="/onlineshop/assets/images/<?php echo htmlspecialchars($product['image']); ?>" 
          class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
@@ -7,19 +8,19 @@
         <p class="card-text flex-grow-1 text-muted"><?php echo htmlspecialchars(substr($product['description'], 0, 100)) . '...'; ?></p>
         <div class="mb-2">
             <?php if ($product['stock'] > 0): ?>
-                <span class="badge badge-success">In Stock: <?php echo htmlspecialchars($product['stock']); ?></span>
+                <span class="badge badge-success"><?php echo Controller::_t('in_stock'); ?>: <?php echo htmlspecialchars($product['stock']); ?></span>
             <?php else: ?>
-                <span class="badge badge-danger">No Stock</span>
+                <span class="badge badge-danger"><?php echo Controller::_t('no_stock'); ?></span>
             <?php endif; ?>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-auto">
             <span class="h5 mb-0 text-primary">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span>
             <div>
-                <a href="/onlineshop/product/show/<?php echo $product['id']; ?>" class="btn btn-outline-primary btn-sm">View</a>
+                <a href="/onlineshop/product/show/<?php echo $product['id']; ?>" class="btn btn-outline-primary btn-sm"><?php echo Controller::_t('view_details'); ?></a>
                 <form action="/onlineshop/cart/add" method="POST" class="d-inline">
                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                     <button type="submit" class="btn btn-primary btn-sm" <?php echo $product['stock'] > 0 ? '' : 'disabled'; ?>>
-                        <i class="bi bi-cart-plus"></i>
+                        <i class="bi bi-cart-plus"></i> <?php echo Controller::_t('add_to_cart'); ?>
                     </button>
                 </form>
             </div>

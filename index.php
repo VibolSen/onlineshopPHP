@@ -7,6 +7,9 @@ error_log('DEBUG: REQUEST_URI = ' . $_SERVER['REQUEST_URI']);
 require_once __DIR__ . '/app/config/config.php';
 require_once __DIR__ . '/app/controllers/Controller.php';
 
+// Load language settings
+Controller::loadLanguage();
+
 // Basic routing
 $base_path = dirname($_SERVER['SCRIPT_NAME']);
 $request_uri = $_SERVER['REQUEST_URI'];

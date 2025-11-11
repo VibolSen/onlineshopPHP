@@ -7,7 +7,7 @@
                 <a href="#" class="footer-icon"><i class="bi bi-envelope-fill"></i></a>
             </div>
             <p class="mb-0 small">
-                &copy; <?php echo date('Y'); ?> <strong>OnlineShop</strong>. All Rights Reserved.
+                &copy; <?php echo date('Y'); ?> <strong><?php require_once __DIR__ . '/../../controllers/Controller.php'; echo Controller::_t('app_name'); ?></strong>. All Rights Reserved.
             </p>
         </div>
     </footer>

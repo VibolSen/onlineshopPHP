@@ -1,11 +1,12 @@
 <?php
 require_once __DIR__ . '/../models/Product.php';
+require_once __DIR__ . '/../controllers/Controller.php'; // Ensure Controller is loaded for _t()
 
 // Initialize Product class
 $productObj = new Product();
 $products = $productObj->getAllProducts();
 
-$title = 'Home';
+$title = Controller::_t('home');
 require __DIR__ . '/partials/header.php';
 ?>
 
@@ -15,17 +16,17 @@ require __DIR__ . '/partials/header.php';
     <section class="hero-banner d-flex justify-content-center align-items-center text-center text-white">
         <div class="overlay"></div>
         <div class="container position-relative z-2">
-            <h1 class="display-3 fw-bold mb-3"><?php echo $bannerTitle ?? 'Welcome to Our Online Shop!'; ?></h1>
-            <p class="lead mb-4"><?php echo $bannerSubtitle ?? 'Find the best products at unbeatable prices.'; ?></p>
+            <h1 class="display-3 fw-bold mb-3"><?php echo Controller::_t('welcome'); ?></h1>
+            <p class="lead mb-4"><?php echo Controller::_t('find_best_products'); ?></p>
             <a href="<?php echo BASE_URL; ?>products" class="btn btn-warning btn-lg shadow">
-                <i class="bi bi-bag-check"></i> Shop Now
+                <i class="bi bi-bag-check"></i> <?php echo Controller::_t('shop_now'); ?>
             </a>
         </div>
     </section>
 
     <!-- 🛍️ Featured Products -->
     <section class="container py-5">
-        <h2 class="text-center mb-5 display-4 text-gradient">Featured Products</h2>
+        <h2 class="text-center mb-5 display-4 text-gradient"><?php echo Controller::_t('featured_products'); ?></h2>
 
         <?php if (!empty($products)): ?>
             <div class="row g-4">
@@ -36,7 +37,7 @@ require __DIR__ . '/partials/header.php';
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <p class="alert alert-info text-center">No products available.</p>
+            <p class="alert alert-info text-center"><?php echo Controller::_t('no_products_available'); ?></p>
         <?php endif; ?>
     </section>
 
