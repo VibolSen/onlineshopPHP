@@ -1,8 +1,11 @@
 <?php
-
 class Controller {
     public static $translations = [];
 
+    /**
+     * Constructor for the Controller.
+     * Ensures a session is started if not already active and loads the appropriate language settings.
+     */
     public function __construct() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -11,6 +14,10 @@ class Controller {
         self::loadLanguage();
     }
 
+    /**
+     * Loads the appropriate language file based on GET parameter, session, or default.
+     * The loaded translations are stored in the static $translations property.
+     */
     public static function loadLanguage() {
         $lang = DEFAULT_LANGUAGE; // Default language
 
@@ -33,15 +40,33 @@ class Controller {
         }
     }
 
+    /**
+     * Translates a given key using the loaded translations.
+     * If the key is not found, the key itself is returned.
+     *
+     * @param string $key The translation key.
+     * @return string The translated string or the key if not found.
+     */
     public static function _t($key) {
         return self::$translations[$key] ?? $key;
     }
 
+    /**
+     * Renders a specified view file, making the provided data available to the view.
+     *
+     * @param string $viewName The name of the view file (e.g., 'home', 'products/index').
+     * @param array $data An associative array of data to be extracted and used in the view.
+     */
     protected function view($viewName, $data = []) {
         extract($data);
         require_once VIEW_PATH . $viewName . '.php';
     }
 
+    /**
+     * Redirects the user to a specified URL path.
+     *
+     * @param string $path The path to redirect to (e.g., 'home', 'admin/products').
+     */
     protected function redirect($path) {
         header("Location: " . BASE_URL . $path); 
         exit();
