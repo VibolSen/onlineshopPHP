@@ -18,7 +18,17 @@ function getLanguageSwitchUrl($lang_code) {
     <link rel="stylesheet" href="/onlineshop/assets/css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        <?php
+        $current_lang = $_SESSION['lang'] ?? DEFAULT_LANGUAGE;
+        if ($current_lang === 'km') {
+            echo "body, .list-group-item, .dropdown-item, .btn, h1, h2, h3, h4, h5, p, a, span, div { font-family: 'Hanuman', 'Poppins', sans-serif; }";
+        } else {
+            echo "body { font-family: 'Poppins', sans-serif; }";
+        }
+        ?>
         body {
             background-color: #f8f9fa;
         }

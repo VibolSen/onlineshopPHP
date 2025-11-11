@@ -21,12 +21,21 @@ function getLanguageSwitchUrl($lang_code) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
+        <?php
+        $current_lang = $_SESSION['lang'] ?? DEFAULT_LANGUAGE;
+        if ($current_lang === 'km') {
+            echo "body, .nav-link, .dropdown-item, .btn, h1, h2, h3, h4, h5, p, a, span, div { font-family: 'Hanuman', 'Poppins', sans-serif; }";
+        } else {
+            echo "body { font-family: 'Poppins', sans-serif; }";
+        }
+        ?>
+
         /* Fancy Navbar */
         body {
-            font-family: 'Poppins', sans-serif;
             padding-top: 70px; /* offset for fixed navbar */
         }
 
