@@ -97,4 +97,5 @@ return [
     'availability' => 'Availability',
     'out_of_stock' => 'Out of Stock',
     'product_not_found' => 'Product not found.',
+    'search_products' => 'Search Products',
 ];

@@ -128,7 +128,10 @@ if (!empty($segments[0])) {
     elseif ($segment_0 === 'product' || $segment_0 === 'products') {
         $controller_name = 'ProductController';
         if (!empty($segments[1])) {
-            if (is_numeric($segments[1])) { // Assuming product ID is numeric
+            if ($segments[1] === 'search') { // Handle search action
+                $action_name = 'search';
+                // Parameters for search are handled via $_GET, so no need to slice segments for params
+            } elseif (is_numeric($segments[1])) { // Assuming product ID is numeric
                 $action_name = 'show'; // Or 'detail'
                 $params = [$segments[1]];
             } else {

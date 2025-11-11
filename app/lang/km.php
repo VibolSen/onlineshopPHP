@@ -97,4 +97,5 @@ return [
     'availability' => 'ភាពមាន',
     'out_of_stock' => 'អស់ពីស្តុក',
     'product_not_found' => 'រកមិនឃើញផលិតផលទេ។',
+    'search_products' => 'ស្វែងរកផលិតផល',
 ];

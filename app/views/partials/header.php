@@ -148,8 +148,13 @@ function getLanguageSwitchUrl($lang_code) {
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>about"><?php echo Controller::_t('about_us'); ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>contact"><?php echo Controller::_t('contact_us'); ?></a></li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>contact"><?php echo Controller::_t('contact_us'); ?></a>
+                        <form class="form-inline my-2 my-lg-0" action="<?php echo BASE_URL; ?>products/search" method="GET">
+                            <input class="form-control mr-sm-2" type="search" placeholder="<?php echo Controller::_t('search_products'); ?>" aria-label="Search" name="search">
+                            <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
                     </li>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
@@ -159,8 +164,16 @@ function getLanguageSwitchUrl($lang_code) {
                             <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin"><i class="bi bi-speedometer2"></i> <?php echo Controller::_t('admin_panel'); ?></a></li>
                         <?php endif; ?>
 
-                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>profile"><i class="bi bi-person-circle"></i> <?php echo Controller::_t('profile'); ?></a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>logout"><i class="bi bi-box-arrow-right"></i> <?php echo Controller::_t('logout'); ?></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> <?php echo Controller::_t('profile'); ?>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="<?php echo BASE_URL; ?>profile"><i class="bi bi-person-circle"></i> <?php echo Controller::_t('profile'); ?></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo BASE_URL; ?>logout"><i class="bi bi-box-arrow-right"></i> <?php echo Controller::_t('logout'); ?></a>
+                            </div>
+                        </li>
 
                     <?php else: ?>
                         <li class="nav-item">

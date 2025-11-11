@@ -36,6 +36,13 @@ class ProductController extends Controller {
             echo "404 Product Not Found";
         }
     }
+
+    public function search() {
+        $searchTerm = $_GET['search'] ?? '';
+        $products = $this->productModel->getProductsFiltered($searchTerm, null, 100, 0, 'name', 'ASC'); // Assuming default limit, offset, sort
+        $categories = $this->categoryModel->getAllCategories();
+        $this->view('products/index', ['products' => $products, 'title' => 'Search Results for "' . htmlspecialchars($searchTerm) . '"', 'categories' => $categories, 'searchTerm' => $searchTerm]);
+    }
 }
 
 ?>
